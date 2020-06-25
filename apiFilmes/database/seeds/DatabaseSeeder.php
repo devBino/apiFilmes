@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
         Usuario::create([
             'nmUsuario'=>'admin',
             'dsSenha'=> sha1( env('KEY_APP_API') . 'admin'),
-            'email'=>'fernando.bino.machado@gmail.com',
+            'email'=>env('MAIL_USERNAME'),
             'confirmado'=>1,
-            'tokenCompleto'=>sha1('admin'.'fernando.bino.machado@gmail.com') . env('KEY_APP_API'),
-            'tokenUsuario'=>sha1('admin'.'fernando.bino.machado@gmail.com'),
+            'tokenCompleto'=>sha1('admin'. env('MAIL_USERNAME') ) . env('KEY_APP_API'),
+            'tokenUsuario'=>sha1('admin'. env('MAIL_USERNAME') ),
             'cdPermissao'=>1
         ]);
     }

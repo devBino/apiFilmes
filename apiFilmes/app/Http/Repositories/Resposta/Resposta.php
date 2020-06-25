@@ -31,7 +31,7 @@ class Resposta implements RESP{
     }
 
     public static function processadoSemResposta(){
-        return response(['message'=>'Requisição aceita, mas nenhum registro foi afetado...','success'=>false],202)
+        return response(['message'=>'Requisição aceita, mas nenhum registro pode ser afetado ou encontrado...','success'=>false],202)
             ->header('Content-Type','application/json');
     }
 

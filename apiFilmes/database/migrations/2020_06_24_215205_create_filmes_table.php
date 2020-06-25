@@ -19,14 +19,15 @@ class CreateFilmesTable extends Migration
         Schema::create('filme', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nome')->unique();
-            $table->timestamp('dtLancamento');
+            $table->dateTime('dtLancamento')->useCurrent();
             $table->bigInteger('idDiretor')->unsigned();
             $table->foreign('idDiretor')->references('id')->on('diretor');
             $table->integer('classificacao');
-            $table->integer('genero');
+            $table->string('genero',155)->index();
             $table->integer('duracao');
             $table->integer('qtdeOscar');
             $table->longText('resumo');
+            $table->longText('urlTrailer',250);
         });
     }
 

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Repositories\Email\Email;
 use App\Http\Repositories\Resposta\Resposta;
 use App\Http\Repositories\Dados\CRUD as CD;
 use DB;
@@ -26,6 +27,10 @@ class Usuario{
 
         $dados = $dados->get();
         
+        if( !count($dados) ){
+            return $this->resposta->processadoSemResposta();
+        }
+
         //limpa o array
         $arrResponse = [];
 
@@ -54,7 +59,22 @@ class Usuario{
         ]);
         
         if( $acao !== false && (int) $acao > 0 ){
+            
+
+            $msg = "Olá ".$params['nomeUsuario'].", você se cadastrou em nossa Api.";
+            $msg = utf8_encode($msg);
+
+            $link = env('APP_URL').":".env('API_PORT')."/usuarioAutorizacao/".$params['nomeUsuario']."/".$params['senhaUsuario']."/".sha1($params['nomeUsuario'].$params['email']);
+            
+            $data['endereco']   = $params['email'];
+            $data['nome']       = $params['nomeUsuario'];
+            $data['assunto']    = "Confirme seu Cadastro na apiFilmes";
+            $data['html']       = view('email.email')->with( ['data'=>['message'=>$msg,'link'=>$link] ] )->render();
+
+            Email::sendEmail($data);
+
             return $this->resposta->send( $request->all() );
+
         }else{
             return $this->resposta->processadoSemResposta();
         }

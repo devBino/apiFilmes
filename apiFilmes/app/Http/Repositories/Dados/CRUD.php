@@ -28,7 +28,7 @@ class CRUD{
             $dados  = self::dadosLog($params['dados']);
             $acao   = DB::table($params['tabela'])->insert($dados);
             return $acao;
-        }catch(Exception $e){            
+        }catch(Exception $e){
             return false;
         }
     }

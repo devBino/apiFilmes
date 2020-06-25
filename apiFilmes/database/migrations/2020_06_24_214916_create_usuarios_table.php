@@ -22,7 +22,7 @@ class CreateUsuariosTable extends Migration
             $table->string('tokenCompleto')->unique();
             $table->string('tokenUsuario')->unique();
             $table->integer('cdPermissao');
-            $table->timestamp('dtUpdate')->useCurrent();
+            $table->dateTime('dtUpdate')->useCurrent();
         });
     }
 

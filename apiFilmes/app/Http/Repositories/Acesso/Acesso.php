@@ -97,6 +97,23 @@ class Acesso{
     }
 
     /**
+     * valida acesso pra requisições DELETE
+    */
+    public static function processarDELETE(Request $request){
+
+        if( !isset($request->usuario) || empty($request->usuario) || !isset($request->senha) || empty($request->senha) || !isset($request->token) || empty($request->token) ){
+            return ['msg'=>'Erro ao autenticar...','registros'=>0];
+        }
+
+        self::$usuario  = $request->usuario;
+        self::$senha    = $request->senha;
+        self::$token    = $request->token;
+
+        $return = self::buscaDadosAcesso();
+        return $return;
+    }
+
+    /**
      * função isolada pra buscar os dados de acesso no banco
      * por padrão a composição da senha no banco é sha1(env('KEY_APP_API').$senhaRecebida)
      * por padrão o tokenCompleto no banco é $tokenRecebido . env('KEY_APP_API')
