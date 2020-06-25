@@ -7,6 +7,9 @@ use DB;
 class Acesso{
 
     public static $verificaAdmin = false;
+    public static $usuario;
+    public static $senha;
+    public static $token;
 
     /**
      * Recebe o $request e redireciona dinamicamente para função
@@ -46,11 +49,15 @@ class Acesso{
     public static function processarPOST(Request $request){
         $params = $request->all();
 
-        if( !isset($params['usuario']) || empty($params['usuario']) || !isset($params['senha']) || empty($params['senha']) ){
-            return 0;
+        if( !isset($params['usuario']) || empty($params['usuario']) || !isset($params['senha']) || empty($params['senha']) || !isset($params['token']) || empty($params['token']) ){
+            return ['msg'=>'Erro ao autenticar...','registros'=>0];
         }
 
-        $return = self::buscaDadosAcesso($params['usuario'],$params['senha']);
+        self::$usuario  = $params['usuario'];
+        self::$senha    = $params['senha'];
+        self::$token    = $params['token'];
+
+        $return = self::buscaDadosAcesso();
         return $return;
     }
 
@@ -60,11 +67,15 @@ class Acesso{
     public static function processarPUT(Request $request){
         $params = $request->input();
         
-        if( !isset($params['usuario']) || empty($params['usuario']) || !isset($params['senha']) || empty($params['senha']) ){
-            return 0;
+        if( !isset($params['usuario']) || empty($params['usuario']) || !isset($params['senha']) || empty($params['senha']) || !isset($params['token']) || empty($params['token']) ){
+            return ['msg'=>'Erro ao autenticar...','registros'=>0];
         }
 
-        $return = self::buscaDadosAcesso($params['usuario'],$params['senha']);
+        self::$usuario  = $params['usuario'];
+        self::$senha    = $params['senha'];
+        self::$token    = $params['token'];
+
+        $return = self::buscaDadosAcesso();
         return $return;
     }
 
@@ -73,31 +84,58 @@ class Acesso{
     */
     public static function processarGET(Request $request){
         
-        if( !isset($request->usuario) || empty($request->usuario) || !isset($request->senha) || empty($request->senha) ){
-            return 0;
+        if( !isset($request->usuario) || empty($request->usuario) || !isset($request->senha) || empty($request->senha) || !isset($request->token) || empty($request->token) ){
+            return ['msg'=>'Erro ao autenticar...','registros'=>0];
         }
 
-        $return = self::buscaDadosAcesso($request->usuario,$request->senha);
+        self::$usuario  = $request->usuario;
+        self::$senha    = $request->senha;
+        self::$token    = $request->token;
+
+        $return = self::buscaDadosAcesso();
         return $return;
     }
 
     /**
      * função isolada pra buscar os dados de acesso no banco
+     * por padrão a composição da senha no banco é sha1(env('KEY_APP_API').$senhaRecebida)
+     * por padrão o tokenCompleto no banco é $tokenRecebido . env('KEY_APP_API')
+     * onde
+     * usuario,senha e token recebios estão setados como atributos dessa classe
     */
-    public static function buscaDadosAcesso($usuario,$senha){
+    public static function buscaDadosAcesso(){
         
+        //recupera dados do usuário para comparar token
+        $dadosToken = DB::table('usuario')
+            ->select('tokenCompleto','tokenUsuario')
+            ->where('nmUsuario',self::$usuario)
+            ->get();
+        
+        //usuário não encontrado
+        if(!count($dadosToken)){
+            return ['msg'=>'Usuário não localizado...','registros'=>0];
+        }
+
+        //token usuário inválido
+        $tokenBanco = $dadosToken[0]->tokenUsuario;
+
+        if( self::$token != $tokenBanco ){
+            return ['msg'=>'Token de usuário inválido...','registros'=>0];
+        }
+
         //inicia busca
         $dados = DB::table('usuario')
             ->select()
-            ->where('nmUsuario',$usuario)
-            ->where('dsSenha',sha1( env('KEY_APP_API') . $senha ) );
+            ->where('nmUsuario',self::$usuario)
+            ->where('dsSenha',sha1( env('KEY_APP_API') . self::$senha ) )
+            ->where('tokenCompleto',self::$token . env('KEY_APP_API') );
 
         //verifica se é pra conferir permissao de admin
         if( self::$verificaAdmin ){
             $dados = $dados->where('cdPermissao',1);
         }
 
-        //finaliza busca e trabalha retorno
+        //finaliza busca e trata retorno
         $dados = $dados->get();
 
         $return = ['msg'=>'Erro ao autenticar...','registros'=>count($dados)];
@@ -111,20 +149,6 @@ class Acesso{
         }
 
         return $return;
-    }
-
-    /**
-     * recebe uma requisição GET, vinda provavelmente de um click em link
-     * no email do usuário e valida se esse é um usuário, se for, altera o 
-     * campo confirmado para 1
-    */
-    public static function confirmarUsuario(Request $request){
-
-        //verifica se tem os parametros necessários
-        if( !isset($request->usuario) || empty($request->usuario) || !isset($request->senha) || empty($request->senha) || !isset($request->senha) || empty($request->senha) ){
-            return 0;
-        }
-        
     }
 
 }

@@ -100,4 +100,45 @@ class Usuario{
 
     }
 
+    public function confirmarUsuario(Request $request){
+        
+        //verifica se tem os parametros necessários
+        if( !isset($request->usuario) || empty($request->usuario) || !isset($request->senha) || empty($request->senha) || !isset($request->senha) || empty($request->senha) ){
+            return $this->resposta->erroRequisicao("Parâmetros obrigatórios: usuario, senha e token...");
+        }
+
+        //recupera dados do usuário para comparar token
+        $dadosToken = DB::table('usuario')
+            ->select('tokenCompleto','tokenUsuario')
+            ->where('nmUsuario',$request->usuario)
+            ->get();
+        
+        //usuário não encontrado
+        if(!count($dadosToken)){
+            return $this->resposta->erroAutenticar("Usuario não encontrado...");
+        }
+
+        //token usuário inválido
+        $tokenBanco = $dadosToken[0]->tokenUsuario;
+
+        if( $request->token != $tokenBanco ){
+            return $this->resposta->erroAutenticar("Token inválido");
+        }
+
+        //atualiza o campo confirmado
+        $acao = CD::alterar([
+            'tabela'=>'usuario',
+            'campo'=>'nmUsuario',
+            'valor'=>$request->usuario,
+            'valores'=>[ 'confirmado'=>1 ]
+        ]);
+
+        if( $acao !== false && (int) $acao > 0 ){
+            return $this->resposta->send( ['status'=>'Usuário autenticado!'] );
+        }else{
+            return $this->resposta->processadoSemResposta();
+        }
+        
+    }
+
 }

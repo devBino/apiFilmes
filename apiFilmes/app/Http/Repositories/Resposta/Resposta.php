@@ -35,4 +35,9 @@ class Resposta implements RESP{
             ->header('Content-Type','application/json');
     }
 
+    public static function erroRequisicao($msg = null){
+        $message = !is_null($msg) ? $msg : 'Nem todos os parâmetros foram informados...';
+        return response(['message'=>$message,'success'=>false], 400)->header('Content-Type', 'application/json');
+    }
+
 }
