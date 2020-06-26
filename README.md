@@ -10,7 +10,7 @@ Descrição: Exemplo de API REST com Laravel, trabalhando com os 4 principais ve
 <h5>3 - Criar e Configurar arquivo .env </h5>
 <p>Aviso! Configure o .env com muita atenção porque as próximas etapas de configuração bem como o funcionamento da aplicação dependem dessa configuração...</p>
 <hr>
-<p>
+<p style="font-size:9pt;">
 APP_NAME=Laravel
 APP_ENV=local
 APP_KEY=base64:dBe/QHQmD8mldjG0ldrRUSJKn7sx9azdKn08+Gs7mNU=
@@ -77,14 +77,12 @@ API_DOC = https://documenter.getpostman.com/view/9798213/SzzrZaEr?version=latest
 
 <h5>6 - Confirme seu acesso no Email você recebeu como admin uma mensagem que devera ser confirmada, clique no link Confirmar
     Você será redirecionado para uma url parecida com isso</h5>
-
-    
-    <p>http://localhost:8000/usuarioAutorizacao/admin/b54bbbc63b0d0d3f10ddba78adbb226dd2d48c82/7aaeaa87c842946f346dd80049a4ac1de1a3b5f2</b><br>
-    <p>o que estiver depois da última barra será o seu token</b><br>
-    <p>Nesse exemplo temos os dados de acesso a API da seguinte maneira:</b><br>
-    <p>usuario = admin</b><br>
-    <p>senha = admin</b><br>
-    <p>token = 7aaeaa87c842946f346dd80049a4ac1de1a3b5f2</b><br>
+    <p>http://localhost:8000/usuarioAutorizacao/admin/b54bbbc63b0d0d3f10ddba78adbb226dd2d48c82/7aaeaa87c842946f346dd80049a4ac1de1a3b5f2</p><br>
+    <p>o que estiver depois da última barra será o seu token</p><br>
+    <p>Nesse exemplo temos os dados de acesso a API da seguinte maneira:</p><br>
+    <p>usuario = admin</p><br>
+    <p>senha = admin</p><br>
+    <p>token = 7aaeaa87c842946f346dd80049a4ac1de1a3b5f2</p><br>
     
 
 <h5>Documentação da API</h5>
