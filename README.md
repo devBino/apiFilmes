@@ -3,9 +3,11 @@ Autor: Fernando Bino Machado<br>
 e-mail: fernando.bino.machado@gmail.com<br>
 Descrição: Exemplo de API REST com Laravel, trabalhando com os 4 principais verbos HTTP
 
-<h1>1 - git clone https://github.com/devBino/apiFilmes.git</h1>
-<h1>2 - Rode o comando cd apiFilmes/apiFilmes</h1>
-<h1>3 - Criar e Configurar arquivo .env <h1>
+<h1>Instruções</h1>
+
+<h5>1 - git clone https://github.com/devBino/apiFilmes.git</h5>
+<h5>2 - Rode o comando cd apiFilmes/apiFilmes</h5>
+<h5>3 - Criar e Configurar arquivo .env </h5>
 <p>Aviso! Configure o .env com muita atenção porque as próximas etapas de configuração bem como o funcionamento da aplicação dependem dessa configuração...</p>
 <hr>
 <p>
@@ -64,17 +66,17 @@ API_DOC = https://documenter.getpostman.com/view/9798213/SzzrZaEr?version=latest
 </p>
 </hr>
 
-<h1>4 - Acesse seu Workbench ou PhpMyadmin e crie o banco de dados com o seguinte comando</h1>
+<h5>4 - Acesse seu Workbench ou PhpMyadmin e crie o banco de dados com o seguinte comando</h5>
     <p>create database apiFilmes;</p>
 
-<h1>5 - Rodar comandos com php artisan, exatamente na sequencia abaixo</h1>
+<h5>5 - Rodar comandos com php artisan, exatamente na sequencia abaixo</h5>
     <p>composer install</p>
     <p>php artisan migrate</p>
     <p>php artisan db:seed</p>
     <p>php artisan serv</p>
 
-<h1>6 - Confirme seu acesso no Email você recebeu como admin uma mensagem que devera ser confirmada, clique no link Confirmar
-    Você será redirecionado para uma url parecida com isso</h1>
+<h5>6 - Confirme seu acesso no Email você recebeu como admin uma mensagem que devera ser confirmada, clique no link Confirmar
+    Você será redirecionado para uma url parecida com isso</h5>
 
     
     <p>http://localhost:8000/usuarioAutorizacao/admin/b54bbbc63b0d0d3f10ddba78adbb226dd2d48c82/7aaeaa87c842946f346dd80049a4ac1de1a3b5f2</b><br>
@@ -85,5 +87,5 @@ API_DOC = https://documenter.getpostman.com/view/9798213/SzzrZaEr?version=latest
     <p>token = 7aaeaa87c842946f346dd80049a4ac1de1a3b5f2</b><br>
     
 
-<h1>Documentação da API</h1>
+<h5>Documentação da API</h5>
 <p><center><a href="https://documenter.getpostman.com/view/9798213/SzzrZaEr?version=latest" target="_blank">Documentação API</a></center></p>
