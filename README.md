@@ -10,6 +10,7 @@ Descrição: Exemplo de API REST com Laravel, trabalhando com os 4 principais ve
 <h5>3 - Criar e Configurar arquivo .env </h5>
 <p>Aviso! Configure o .env com muita atenção porque as próximas etapas de configuração bem como o funcionamento da aplicação dependem dessa configuração...</p>
 <hr>
+# INICIO DO .env
 <p>
 APP_NAME=Laravel
 APP_ENV=local
@@ -72,6 +73,7 @@ API_PORT = 8000
 
 API_DOC = https://documenter.getpostman.com/view/9798213/SzzrZaEr?version=latest
 </p><br>
+# FIM DO .env
 </hr>
 
 <h5>4 - Acesse seu Workbench ou PhpMyadmin e crie o banco de dados com o seguinte comando</h5>
