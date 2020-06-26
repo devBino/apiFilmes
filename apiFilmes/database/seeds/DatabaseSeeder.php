@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'nmUsuario'=>'admin',
             'dsSenha'=> sha1( env('KEY_APP_API') . 'admin'),
             'email'=>env('MAIL_USERNAME'),
-            'confirmado'=>1,
+            'confirmado'=>0,
             'tokenCompleto'=>sha1('admin'. env('MAIL_USERNAME') ) . env('KEY_APP_API'),
             'tokenUsuario'=>sha1('admin'. env('MAIL_USERNAME') ),
             'cdPermissao'=>1
