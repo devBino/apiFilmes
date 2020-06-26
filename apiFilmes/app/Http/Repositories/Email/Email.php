@@ -42,4 +42,18 @@ class Email{
 
     }
 
+    public static function emailAdminPrimeiroAcesso($params){
+        $msg = "Olá ".$params['nomeUsuario'].", você se cadastrou em nossa Api.";
+        $msg = $msg;
+
+        $link = env('APP_URL').":".env('API_PORT')."/usuarioAutorizacao/".$params['nomeUsuario']."/".$params['senhaUsuario']."/".sha1($params['nomeUsuario'].$params['email']);
+        
+        $data['endereco']   = $params['email'];
+        $data['nome']       = $params['nomeUsuario'];
+        $data['assunto']    = "Confirme seu Cadastro na apiFilmes";
+        $data['html']       = view('email.email')->with( ['data'=>['message'=>$msg,'link'=>$link] ] )->render();
+
+        self::sendEmail($data);
+    }
+
 }

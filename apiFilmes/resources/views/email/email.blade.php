@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
   </head>
   <body>
-    <h2>Recado Api Filmes Magic Design</h2>
+    <h2>Recado, Api Filmes Magic Design</h2>
     <hr>
     <p>{{ $data['message'] }}</p>
     
