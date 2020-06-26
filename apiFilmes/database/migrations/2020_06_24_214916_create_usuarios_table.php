@@ -15,9 +15,9 @@ class CreateUsuariosTable extends Migration
     {
         Schema::create('usuario', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nmUsuario',100)->index();
+            $table->string('nmUsuario',100)->unique();
             $table->string('dsSenha')->unique();
-            $table->string('email')->index();
+            $table->string('email')->unique();
             $table->integer('confirmado')->default('0');
             $table->string('tokenCompleto')->unique();
             $table->string('tokenUsuario')->unique();

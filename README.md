@@ -3,6 +3,9 @@ Autor: Fernando Bino Machado<br>
 e-mail: fernando.bino.machado@gmail.com<br>
 Descrição: Exemplo de API REST com Laravel, trabalhando com os 4 principais verbos HTTP
 
+Observação: Versão Beta ;)
+Está sujeita a refatoramento de código!!
+
 <h1>Instruções</h1>
 
 <h5>1 - git clone https://github.com/devBino/apiFilmes.git</h5>
@@ -84,6 +87,7 @@ API_DOC = https://documenter.getpostman.com/view/9798213/SzzrZaEr?version=latest
     <p>php artisan migrate</p>
     <p>php artisan db:seed</p>
     <p>php artisan serv</p>
+    <p>Após essa sequencia de comandos acesse http://localhost:8000/</p>
 
 <h5>6 - Confirme seu acesso no Email você recebeu como admin uma mensagem que devera ser confirmada, clique no link Confirmar
     Você será redirecionado para uma url parecida com isso</h5>
@@ -95,5 +99,7 @@ API_DOC = https://documenter.getpostman.com/view/9798213/SzzrZaEr?version=latest
     <p>token = 7aaeaa87c842946f346dd80049a4ac1de1a3b5f2</p><br>
     
 
-<h5>Documentação da API</h5>
+<h5>7 - Documentação da API</h5>
 <p><center><a href="https://documenter.getpostman.com/view/9798213/SzzrZaEr?version=latest" target="_blank">Documentação API</a></center></p>
+
+<h5>8 - Informações Adicionais em: http://localhost:8000/documentacao</h5>

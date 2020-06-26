@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/','Home@index');
 Route::get('/documentacao','Home@documentacao');
+Route::get('/documentacao/token','Home@getToken');
 
 Route::get('/{slug?}','Home@erroRota');
 /*Route::post('/{slug?}','Home@erroRota');

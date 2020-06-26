@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Repositories\Resposta\Resposta as RESP;
+use App\Http\Repositories\Acesso\Acesso;
+use DB;
 
 class Home{
 
@@ -17,12 +19,21 @@ class Home{
     }
 
     public function documentacao(){
+        return view('doc.index');
+    }
 
-        return view('doc.index')->with([
+    public function getToken(Request $request){
+        $dados = Acesso::getDadosToken($request);
+    
+        return view('doc.token')->with([
             'data'=>[
-                'url'=>env('API_DOC')
+                'dadosToken'=>$dados
             ]
         ]);
+    }
+
+    public function showToken(){
+        return view('doc.token');
     }
 
     public function erroRota(){

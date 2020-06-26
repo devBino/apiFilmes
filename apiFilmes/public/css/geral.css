@@ -1,0 +1,9 @@
+#textToken{
+    border:none;
+    width: 100%;
+}
+.form-token, .table-token{
+    border:1px solid #dddddd;
+    border-radius: 5px;
+    background-color: #ffffff;
+}

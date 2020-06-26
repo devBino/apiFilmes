@@ -13,6 +13,14 @@ class Resposta implements RESP{
             $msg = "Solicitação Processada com sucesso!";
         }
 
+        //remove senha para não mostrar na resposta da api
+        if( isset($params['senha']) && !empty($params['senha']) ){
+            unset($params['senha']);
+        }
+        if( isset($params['senhaUsuario']) && !empty($params['senhaUsuario']) ){
+            unset($params['senhaUsuario']);
+        }
+
         return response( ['message'=>$msg,'success'=>true,'data'=>$params], 200 )->header('Content-Type', 'application/json');
     }
 

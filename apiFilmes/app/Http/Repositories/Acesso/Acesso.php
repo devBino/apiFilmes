@@ -168,4 +168,32 @@ class Acesso{
         return $return;
     }
 
+    /**
+     * retorna dados do token do usuário atraves de usuario + email
+     * @return array
+    */
+    public static function getDadosToken(Request $request){
+        
+        //inicia busca
+        $dados = DB::table('usuario')
+            ->select()
+            ->where('nmUsuario',$request->usuario)
+            ->where('email', base64_decode($request->email) )
+            ->get();
+        
+        //retorna array vazio
+        if( !count($dados) ){
+            return [];
+        }
+
+        //retorna dados
+        $return = [
+            'usuario'=>$request->usuario,
+            'email'=>$request->email,
+            'token'=>$dados[0]->tokenUsuario
+        ];
+
+        return $return;
+    }
+
 }

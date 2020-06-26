@@ -8,3 +8,9 @@
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+
+<!-- Geral Css -->
+<link rel="stylesheet" href="{{asset('/css/geral.css')}}">
+
+<!-- Geral Js -->
+<script src="{{asset('/js/geral.js')}}"></script>

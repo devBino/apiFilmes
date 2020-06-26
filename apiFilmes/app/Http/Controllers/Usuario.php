@@ -172,7 +172,6 @@ class Usuario{
         if( $acao !== false && (int) $acao > 0 ){
             return view('doc.index')->with([
                 'data'=>[
-                    'url'=>env('API_DOC'),
                     'confirmacaoEmailUsuario'=>'Seu token foi confirmado com sucesso, agora basta acessar a documentação da API e conhecer um pouco mais sobre suas funcionalidades!!'
                 ]
             ]);
