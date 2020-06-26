@@ -62,7 +62,7 @@ class Usuario{
             
 
             $msg = "Olá ".$params['nomeUsuario'].", você se cadastrou em nossa Api.";
-            $msg = utf8_encode($msg);
+            $msg = $msg;
 
             $link = env('APP_URL').":".env('API_PORT')."/usuarioAutorizacao/".$params['nomeUsuario']."/".$params['senhaUsuario']."/".sha1($params['nomeUsuario'].$params['email']);
             
@@ -102,7 +102,7 @@ class Usuario{
         if( $acao !== false && (int) $acao > 0 ){
 
             $msg = "Olá ".$params['nomeUsuario'].", você atualizou seu cadastro em nossa Api.";
-            $msg = utf8_encode($msg);
+            $msg = $msg;
 
             $link = env('APP_URL').":".env('API_PORT')."/usuarioAutorizacao/".$params['nomeUsuario']."/".$params['senhaUsuario']."/".sha1($params['nomeUsuario'].$params['email']);
             
@@ -170,7 +170,12 @@ class Usuario{
         ]);
 
         if( $acao !== false && (int) $acao > 0 ){
-            return $this->resposta->send( ['status'=>'Usuário autenticado!'] );
+            return view('doc.index')->with([
+                'data'=>[
+                    'url'=>env('API_DOC'),
+                    'confirmacaoEmailUsuario'=>'Seu token foi confirmado com sucesso, agora basta acessar a documentação da API e conhecer um pouco mais sobre suas funcionalidades!!'
+                ]
+            ]);
         }else{
             return $this->resposta->processadoSemResposta();
         }

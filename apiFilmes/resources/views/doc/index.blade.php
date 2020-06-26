@@ -34,5 +34,20 @@
     </div>
 </nav>
 
+<div class="row">
+
+  <div class="col-sm-12">
+    
+    @if(  isset($data['confirmacaoEmailUsuario']) )
+      <div id="divMsg" class="alert-success">
+        <h3>Parabéns!!</h3>
+        <p align="justified">{{$data['confirmacaoEmailUsuario']}}</p>
+      </div>
+    @endif
+
+  </div>
+
+</div>
+
 </body>
 </html>
