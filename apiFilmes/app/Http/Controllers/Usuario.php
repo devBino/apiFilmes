@@ -92,11 +92,27 @@ class Usuario{
             'valores'=>[
                 'nmUsuario'=>$params['nomeUsuario'],
                 'dsSenha'=>sha1( env('KEY_APP_API') . $params['senhaUsuario'] ),
-                'email'=>$params['email']
+                'email'=>$params['email'],
+                'tokenCompleto'=>sha1($params['nomeUsuario'].$params['email']) . env('KEY_APP_API'),
+                'tokenUsuario'=>sha1($params['nomeUsuario'].$params['email']),
+                'confirmado'=>0
             ]
         ]);
         
         if( $acao !== false && (int) $acao > 0 ){
+
+            $msg = "Olá ".$params['nomeUsuario'].", você atualizou seu cadastro em nossa Api.";
+            $msg = utf8_encode($msg);
+
+            $link = env('APP_URL').":".env('API_PORT')."/usuarioAutorizacao/".$params['nomeUsuario']."/".$params['senhaUsuario']."/".sha1($params['nomeUsuario'].$params['email']);
+            
+            $data['endereco']   = $params['email'];
+            $data['nome']       = $params['nomeUsuario'];
+            $data['assunto']    = "Confirme seu Cadastro na apiFilmes";
+            $data['html']       = view('email.email')->with( ['data'=>['message'=>$msg,'link'=>$link] ] )->render();
+
+            Email::sendEmail($data);
+
             return $this->resposta->send( $request->all() );
         }else{
             return $this->resposta->processadoSemResposta();

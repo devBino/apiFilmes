@@ -16,6 +16,15 @@ class Home{
         return $this->resposta->send($request->all());
     }
 
+    public function documentacao(){
+
+        return view('doc.index')->with([
+            'data'=>[
+                'url'=>env('API_DOC')
+            ]
+        ]);
+    }
+
     public function erroRota(){
         return $this->resposta->erroRota();
     }

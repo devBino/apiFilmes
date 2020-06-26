@@ -3,9 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/','Home@index');
+Route::get('/documentacao','Home@documentacao');
 
-/*Route::get('/{slug?}','Home@erroRota');
-Route::post('/{slug?}','Home@erroRota');
+Route::get('/{slug?}','Home@erroRota');
+/*Route::post('/{slug?}','Home@erroRota');
 Route::put('/{slug?}','Home@erroRota');
 Route::delete('/{slug?}','Home@erroRota');*/
 
