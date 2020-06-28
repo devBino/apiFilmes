@@ -3,43 +3,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Repositories\Email\Email;
-use App\Http\Repositories\Resposta\Resposta;
+use App\Http\Controllers\Cadastro as CAD;
 use App\Http\Repositories\Dados\CRUD as CD;
 use DB;
 
-class Usuario{
+class Usuario extends CAD{
 
-    private $resposta;
-
-    public function __construct(){
-        $this->resposta = new Resposta();
-    }
-
-    public function listar(Request $request){
-        
-        //busca os usuarios
-        $dados = DB::table('usuario')->select('id','nmUsuario','email','confirmado','cdPermissao','dtUpdate');
-        
-        //verifica parametro(s)
-        if( isset($request->id) ){
-            $dados = $dados->where('id',$request->id);
-        }
-
-        $dados = $dados->get();
-        
-        if( !count($dados) ){
-            return $this->resposta->processadoSemResposta();
-        }
-
-        //limpa o array
-        $arrResponse = [];
-
-        for( $i=0;$i<count($dados); $i++ ){
-            $arrResponse[] = $dados[$i];
-        }
-
-        //responde com os dados da busca
-        return $this->resposta->send( (array) $arrResponse);
+    public function listar(Request $request,$tabela='usuario'){
+        return parent::listar($request,'usuario');
     }
 
     public function salvar(Request $request){
@@ -61,8 +32,9 @@ class Usuario{
         if( $acao !== false && (int) $acao > 0 ){
             
 
-            $msg = "Olá ".$params['nomeUsuario'].", você se cadastrou em nossa Api.";
-            $msg = $msg;
+            $msg = "
+                Olá ".$params['nomeUsuario'].", você se cadastrou em nossa Api.<br>Seu token é: <b>".sha1($params['nomeUsuario'].$params['email'])."</b><br>
+            ";
 
             $link = env('APP_URL').":".env('API_PORT')."/usuarioAutorizacao/".$params['nomeUsuario']."/".$params['senhaUsuario']."/".sha1($params['nomeUsuario'].$params['email']);
             
@@ -101,8 +73,9 @@ class Usuario{
         
         if( $acao !== false && (int) $acao > 0 ){
 
-            $msg = "Olá ".$params['nomeUsuario'].", você atualizou seu cadastro em nossa Api.";
-            $msg = $msg;
+            $msg = "
+                Olá ".$params['nomeUsuario'].", você atualizou seu cadastro em nossa Api.<br>Seu token é: <b>".sha1($params['nomeUsuario'].$params['email'])."</b><br>
+            ";
 
             $link = env('APP_URL').":".env('API_PORT')."/usuarioAutorizacao/".$params['nomeUsuario']."/".$params['senhaUsuario']."/".sha1($params['nomeUsuario'].$params['email']);
             

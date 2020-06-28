@@ -43,9 +43,11 @@ class Email{
     }
 
     public static function emailAdminPrimeiroAcesso($params){
-        $msg = "Olá ".$params['nomeUsuario'].", você se cadastrou em nossa Api.";
-        $msg = $msg;
-
+        
+        $msg = "
+            Olá ".$params['nomeUsuario'].", você se cadastrou em nossa Api.<br>Seu token é: <b>".sha1($params['nomeUsuario'].$params['email'])."</b><br>
+        ";
+        
         $link = env('APP_URL').":".env('API_PORT')."/usuarioAutorizacao/".$params['nomeUsuario']."/".$params['senhaUsuario']."/".sha1($params['nomeUsuario'].$params['email']);
         
         $data['endereco']   = $params['email'];

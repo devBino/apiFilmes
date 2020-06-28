@@ -3,42 +3,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Repositories\Resposta\Resposta;
+use App\Http\Controllers\Cadastro as CAD;
 use App\Http\Repositories\Dados\CRUD as CD;
 use DB;
 
-class Filme{
+class Filme extends CAD{
 
-    private $resposta;
-
-    public function __construct(){
-        $this->resposta = new Resposta();
-    }
-
-    public function listar(Request $request){
-        
-        //busca os filmes
-        $dados = DB::table('filme')->select();
-        
-        //verifica parametro(s)
-        if( isset($request->id) ){
-            $dados = $dados->where('id',$request->id);
-        }
-
-        $dados = $dados->get();
-        
-        if( !count($dados) ){
-            return $this->resposta->processadoSemResposta();
-        }
-
-        //limpa o array
-        $arrResponse = [];
-
-        for( $i=0;$i<count($dados); $i++ ){
-            $arrResponse[] = $dados[$i];
-        }
-
-        //responde com os dados da busca
-        return $this->resposta->send( (array) $arrResponse);
+    public function listar(Request $request,$tabela='filme'){
+        return parent::listar($request,'filme');
     }
 
     public function salvar(Request $request){

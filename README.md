@@ -73,6 +73,7 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 <p>
 KEY_APP_API = 2f3a4fccca6406e35bcf33e92dd93135
 API_PORT = 8000
+TEMPO_TOKEN_API = 300
 
 API_DOC = https://documenter.getpostman.com/view/9798213/SzzrZaEr?version=latest
 </p><br>
@@ -103,3 +104,7 @@ API_DOC = https://documenter.getpostman.com/view/9798213/SzzrZaEr?version=latest
 <p><center><a href="https://documenter.getpostman.com/view/9798213/SzzrZaEr?version=latest" target="_blank">Documentação API</a></center></p>
 
 <h5>8 - Informações Adicionais em: http://localhost:8000/documentacao</h5>
+
+<hr>
+<h5><b>OBSERVAÇÃO:</b<h5>
+<p>Esse projeto precisa que o Redis estja instalado no Sistema Operacional</p>
