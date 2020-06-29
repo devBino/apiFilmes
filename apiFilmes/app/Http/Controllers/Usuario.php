@@ -27,10 +27,7 @@ class Usuario extends CAD{
         
         if( $acao !== false && (int) $acao > 0 ){
             
-
-            $msg = "
-                Olá ".$params['nomeUsuario'].", você se cadastrou em nossa Api.<br>Seu token é: <b>".sha1($params['nomeUsuario'].$params['email'])."</b><br>
-            ";
+            $msg = "Olá ".$params['nomeUsuario'].", você se cadastrou em nossa Api. Seu token é: ".sha1($params['nomeUsuario'].$params['email']);
 
             $link = env('APP_URL').":".env('API_PORT')."/usuarioAutorizacao/".$params['nomeUsuario']."/".$params['senhaUsuario']."/".sha1($params['nomeUsuario'].$params['email']);
             
@@ -69,9 +66,7 @@ class Usuario extends CAD{
         
         if( $acao !== false && (int) $acao > 0 ){
 
-            $msg = "
-                Olá ".$params['nomeUsuario'].", você atualizou seu cadastro em nossa Api.<br>Seu token é: <b>".sha1($params['nomeUsuario'].$params['email'])."</b><br>
-            ";
+            $msg = "Olá ".$params['nomeUsuario'].", você atualizou seu cadastro em nossa Api. Seu token é: ".sha1($params['nomeUsuario'].$params['email']);
 
             $link = env('APP_URL').":".env('API_PORT')."/usuarioAutorizacao/".$params['nomeUsuario']."/".$params['senhaUsuario']."/".sha1($params['nomeUsuario'].$params['email']);
             
