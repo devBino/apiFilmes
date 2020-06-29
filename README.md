@@ -90,7 +90,7 @@ API_DOC = https://documenter.getpostman.com/view/9798213/SzzrZaEr?version=latest
     <p>php artisan serv</p>
     <p>Após essa sequencia de comandos acesse http://localhost:8000/</p>
 
-<h5>6 - Confirme seu acesso no Email você recebeu como admin uma mensagem que devera ser confirmada, clique no link Confirmar
+<h5>6 - Confirme seu acesso no Email (setado em .env); você recebeu como admin uma mensagem que devera ser confirmada, clique no link Confirmar
     Você será redirecionado para uma url parecida com isso</h5>
     <p>http://localhost:8000/usuarioAutorizacao/admin/b54bbbc63b0d0d3f10ddba78adbb226dd2d48c82/7aaeaa87c842946f346dd80049a4ac1de1a3b5f2</p><br>
     <p>o que estiver depois da última barra será o seu token</p><br>
