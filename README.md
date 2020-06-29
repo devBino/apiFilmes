@@ -107,4 +107,4 @@ API_DOC = https://documenter.getpostman.com/view/9798213/SzzrZaEr?version=latest
 
 <hr>
 <h5><b>OBSERVAÇÃO:</b<h5>
-<p>Esse projeto precisa que o Redis estja instalado no Sistema Operacional</p>
+<p>Esse projeto precisa que o Redis esteja instalado no Sistema Operacional</p>
