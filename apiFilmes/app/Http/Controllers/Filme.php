@@ -9,10 +9,6 @@ use DB;
 
 class Filme extends CAD{
 
-    public function listar(Request $request,$tabela='filme'){
-        return parent::listar($request,'filme');
-    }
-
     public function salvar(Request $request){
         
         $params = $request->all();
@@ -33,9 +29,9 @@ class Filme extends CAD{
         ]);
         
         if( $acao !== false && (int) $acao > 0 ){
-            return $this->resposta->send( $request->all() );
+            return self::$resposta->send( $request->all() );
         }else{
-            return $this->resposta->processadoSemResposta();
+            return self::$resposta->processadoSemResposta();
         }
 
     }
@@ -56,27 +52,19 @@ class Filme extends CAD{
         ]);
         
         if( $acao !== false && (int) $acao > 0 ){
-            return $this->resposta->send( $request->all() );
+            return self::$resposta->send( $request->all() );
         }else{
-            return $this->resposta->processadoSemResposta();
+            return self::$resposta->processadoSemResposta();
         }
 
     }
 
-    public function deletar(Request $request){
-        
-        $acao = CD::deletar([
-            'tabela'=>'filme',
-            'campo'=>'id',
-            'valor'=>$request->id
-        ]);
+    public function deletar(Request $request, $tabela='filme'){
+        return parent::deletar($request,'filme');
+    }
 
-        if( $acao !== false && (int) $acao > 0 ){
-            return $this->resposta->send( ['id'=>$request->id,'status'=>'Registro deletado'] );
-        }else{
-            return $this->resposta->processadoSemResposta();
-        }
-
+    public function listar(Request $request,$tabela='filme'){
+        return parent::listar($request,'filme');
     }
 
 }

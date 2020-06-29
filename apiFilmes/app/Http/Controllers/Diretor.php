@@ -8,10 +8,6 @@ use DB;
 
 class Diretor extends CAD{
 
-    public function listar(Request $request,$tabela='diretor'){
-        return parent::listar($request,'diretor');
-    }
-
     public function salvar(Request $request){
         
         $params = $request->all();
@@ -26,9 +22,9 @@ class Diretor extends CAD{
         ]);
         
         if( $acao !== false && (int) $acao > 0 ){
-            return $this->resposta->send( $request->all() );
+            return parent::$resposta->send( $request->all() );
         }else{
-            return $this->resposta->processadoSemResposta();
+            return parent::$resposta->processadoSemResposta();
         }
 
     }
@@ -48,27 +44,19 @@ class Diretor extends CAD{
         ]);
         
         if( $acao !== false && (int) $acao > 0 ){
-            return $this->resposta->send( $request->all() );
+            return parent::$resposta->send( $request->all() );
         }else{
-            return $this->resposta->processadoSemResposta();
+            return parent::$resposta->processadoSemResposta();
         }
 
     }
-
-    public function deletar(Request $request){
         
-        $acao = CD::deletar([
-            'tabela'=>'diretor',
-            'campo'=>'id',
-            'valor'=>$request->id
-        ]);
+    public function deletar(Request $request, $tabela='diretor'){
+        return parent::deletar($request,'diretor');
+    }
 
-        if( $acao !== false && (int) $acao > 0 ){
-            return $this->resposta->send( ['id'=>$request->id,'status'=>'Registro deletado'] );
-        }else{
-            return $this->resposta->processadoSemResposta();
-        }
-
+    public function listar(Request $request,$tabela='diretor'){
+        return parent::listar($request,'diretor');
     }
 
 }

@@ -4,17 +4,40 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Repositories\Resposta\Resposta;
 use App\Http\Repositories\Dados\CRUD as CD;
+use App\Http\Controllers\Cadastro as CAD;
 use DB;
 
-class Elenco{
+class Elenco extends CAD{
 
-    private $resposta;
+    public function salvar(Request $request){
+        
+        $params = $request->all();
 
-    public function __construct(){
-        $this->resposta = new Resposta();
+        //verifica se ator e filme já não estão vinculados
+        $dadosVinculo = DB::table('elenco')->select()->where('idFilme',$params['filme'])->where('idAtor',$params['ator'])->get();
+
+        if( count($dadosVinculo) ){
+            return parent::$resposta->processadoSemResposta();
+        }
+
+        //salva vinculo
+        $acao = CD::salvar([
+            'tabela'=>'elenco',
+            'dados'=>[
+                'idFilme'=>$params['filme'],
+                'idAtor'=>$params['ator']
+            ]
+        ]);
+        
+        if( $acao !== false && (int) $acao > 0 ){
+            return parent::$resposta->send( $request->all() );
+        }else{
+            return parent::$resposta->processadoSemResposta();
+        }
+
     }
 
-    public function listar(Request $request){
+    public function listar(Request $request,$tabela='elenco'){
         
         //busca os atores por filme
         $dados = DB::table('elenco as e')
@@ -48,7 +71,7 @@ class Elenco{
         $dados = $dados->orderBy('idFilme','asc')->get();
         
         if( !count($dados) ){
-            return $this->resposta->processadoSemResposta();
+            return parent::$resposta->processadoSemResposta();
         }
 
         //limpa o array
@@ -59,52 +82,11 @@ class Elenco{
         }
 
         //responde com os dados da busca
-        return $this->resposta->send( (array) $arrResponse);
+        return parent::$resposta->send( (array) $arrResponse);
     }
 
-    public function salvar(Request $request){
-        
-        $params = $request->all();
-
-
-        //verifica se ator e filme já não estão vinculados
-        $dadosVinculo = DB::table('elenco')->select()->where('idFilme',$params['filme'])->where('idAtor',$params['ator'])->get();
-
-        if( count($dadosVinculo) ){
-            return $this->resposta->processadoSemResposta();
-        }
-
-        //salva vinculo
-        $acao = CD::salvar([
-            'tabela'=>'elenco',
-            'dados'=>[
-                'idFilme'=>$params['filme'],
-                'idAtor'=>$params['ator']
-            ]
-        ]);
-        
-        if( $acao !== false && (int) $acao > 0 ){
-            return $this->resposta->send( $request->all() );
-        }else{
-            return $this->resposta->processadoSemResposta();
-        }
-
-    }
-
-    public function deletar(Request $request){
-        
-        $acao = CD::deletar([
-            'tabela'=>'elenco',
-            'campo'=>'id',
-            'valor'=>$request->id
-        ]);
-
-        if( $acao !== false && (int) $acao > 0 ){
-            return $this->resposta->send( ['id'=>$request->id,'status'=>'Registro deletado'] );
-        }else{
-            return $this->resposta->processadoSemResposta();
-        }
-
+    public function deletar(Request $request,$tabela='elenco'){
+        return parent::deletar($request,'elenco');
     }
 
 }

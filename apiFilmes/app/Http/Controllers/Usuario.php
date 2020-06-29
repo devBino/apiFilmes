@@ -9,10 +9,6 @@ use DB;
 
 class Usuario extends CAD{
 
-    public function listar(Request $request,$tabela='usuario'){
-        return parent::listar($request,'usuario');
-    }
-
     public function salvar(Request $request){
         
         $params = $request->all();
@@ -45,10 +41,10 @@ class Usuario extends CAD{
 
             Email::sendEmail($data);
 
-            return $this->resposta->send( $request->all() );
+            return self::$resposta->send( $request->all() );
 
         }else{
-            return $this->resposta->processadoSemResposta();
+            return self::$resposta->processadoSemResposta();
         }
 
     }
@@ -86,25 +82,9 @@ class Usuario extends CAD{
 
             Email::sendEmail($data);
 
-            return $this->resposta->send( $request->all() );
+            return self::$resposta->send( $request->all() );
         }else{
-            return $this->resposta->processadoSemResposta();
-        }
-
-    }
-
-    public function deletar(Request $request){
-        
-        $acao = CD::deletar([
-            'tabela'=>'usuario',
-            'campo'=>'id',
-            'valor'=>$request->id
-        ]);
-
-        if( $acao !== false && (int) $acao > 0 ){
-            return $this->resposta->send( ['id'=>$request->id,'status'=>'Registro deletado'] );
-        }else{
-            return $this->resposta->processadoSemResposta();
+            return self::$resposta->processadoSemResposta();
         }
 
     }
@@ -113,7 +93,7 @@ class Usuario extends CAD{
         
         //verifica se tem os parametros necessários
         if( !isset($request->usuario) || empty($request->usuario) || !isset($request->senha) || empty($request->senha) || !isset($request->senha) || empty($request->senha) ){
-            return $this->resposta->erroRequisicao("Parâmetros obrigatórios: usuario, senha e token...");
+            return self::$resposta->erroRequisicao("Parâmetros obrigatórios: usuario, senha e token...");
         }
 
         //recupera dados do usuário para comparar token
@@ -124,14 +104,14 @@ class Usuario extends CAD{
         
         //usuário não encontrado
         if(!count($dadosToken)){
-            return $this->resposta->erroAutenticar("Usuario não encontrado...");
+            return self::$resposta->erroAutenticar("Usuario não encontrado...");
         }
 
         //token usuário inválido
         $tokenBanco = $dadosToken[0]->tokenUsuario;
 
         if( $request->token != $tokenBanco ){
-            return $this->resposta->erroAutenticar("Token inválido");
+            return self::$resposta->erroAutenticar("Token inválido");
         }
 
         //atualiza o campo confirmado
@@ -149,9 +129,17 @@ class Usuario extends CAD{
                 ]
             ]);
         }else{
-            return $this->resposta->processadoSemResposta();
+            return self::$resposta->processadoSemResposta();
         }
         
+    }
+
+    public function listar(Request $request,$tabela='usuario'){
+        return parent::listar($request,'usuario');
+    }
+
+    public function deletar(Request $request,$tabela='usuario'){
+        return parent::deletar($request,'usuario');
     }
 
 }

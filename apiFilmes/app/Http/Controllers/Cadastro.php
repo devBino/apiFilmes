@@ -3,14 +3,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Repositories\Resposta\Resposta;
+use App\Http\Repositories\Dados\CRUD as CD;
 use DB;
 
 class Cadastro{
 
-    private $resposta;
+    public static $resposta;
 
     public function __construct(){
-        $this->resposta = new Resposta();
+        self::$resposta = new Resposta();
     }
 
     public function listar(Request $request,$tabela){
@@ -26,7 +27,7 @@ class Cadastro{
         $dados = $dados->get();
         
         if( !count($dados) ){
-            return $this->resposta->processadoSemResposta();
+            return self::$resposta->processadoSemResposta();
         }
 
         //limpa o array
@@ -37,7 +38,23 @@ class Cadastro{
         }
 
         //responde com os dados da busca
-        return $this->resposta->send( (array) $arrResponse);
+        return self::$resposta->send( (array) $arrResponse);
+
+    }
+
+    public function deletar(Request $request, $tabela){
+        
+        $acao = CD::deletar([
+            'tabela'=>$tabela,
+            'campo'=>'id',
+            'valor'=>$request->id
+        ]);
+
+        if( $acao !== false && (int) $acao > 0 ){
+            return self::$resposta->send( ['id'=>$request->id,'status'=>'Registro deletado'] );
+        }else{
+            return self::$resposta->processadoSemResposta();
+        }
 
     }
 

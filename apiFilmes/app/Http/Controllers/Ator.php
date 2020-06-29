@@ -8,10 +8,6 @@ use DB;
 
 class Ator extends CAD{
 
-    public function listar(Request $request,$tabela='ator'){
-        return parent::listar($request,'ator');
-    }
-
     public function salvar(Request $request){
         
         $params = $request->all();
@@ -26,9 +22,9 @@ class Ator extends CAD{
         ]);
         
         if( $acao !== false && (int) $acao > 0 ){
-            return $this->resposta->send( $request->all() );
+            return parent::$resposta->send( $request->all() );
         }else{
-            return $this->resposta->processadoSemResposta();
+            return parent::$resposta->processadoSemResposta();
         }
 
     }
@@ -48,27 +44,19 @@ class Ator extends CAD{
         ]);
         
         if( $acao !== false && (int) $acao > 0 ){
-            return $this->resposta->send( $request->all() );
+            return parent::$resposta->send( $request->all() );
         }else{
-            return $this->resposta->processadoSemResposta();
+            return parent::$resposta->processadoSemResposta();
         }
 
     }
 
-    public function deletar(Request $request){
-        
-        $acao = CD::deletar([
-            'tabela'=>'ator',
-            'campo'=>'id',
-            'valor'=>$request->id
-        ]);
+    public function listar(Request $request,$tabela='ator'){
+        return parent::listar($request,'ator');
+    }
 
-        if( $acao !== false && (int) $acao > 0 ){
-            return $this->resposta->send( ['id'=>$request->id,'status'=>'Registro deletado'] );
-        }else{
-            return $this->resposta->processadoSemResposta();
-        }
-
+    public function deletar(Request $request, $tabela='ator'){
+        return parent::deletar($request,'ator');
     }
 
 }
